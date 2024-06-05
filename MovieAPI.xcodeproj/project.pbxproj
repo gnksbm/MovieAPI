@@ -16,6 +16,9 @@
 		BEDE2DE72C1074B700700601 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BEDE2DE62C1074B700700601 /* SnapKit */; };
 		BEDE2DEB2C1074F000700601 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BEDE2DEA2C1074F000700601 /* .gitignore */; };
 		BEDE2DF02C10754200700601 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DEF2C10754200700601 /* API.swift */; };
+		BEDE2DF22C10770C00700601 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DF12C10770C00700601 /* MovieTableViewCell.swift */; };
+		BEDE2DF52C1079C000700601 /* MovieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DF42C1079C000700601 /* MovieData.swift */; };
+		BEDE2DF72C107B5000700601 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDE2DF62C107B5000700601 /* DateFormat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		BEDE2DD72C10739300700601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEDE2DEA2C1074F000700601 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BEDE2DEF2C10754200700601 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		BEDE2DF12C10770C00700601 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
+		BEDE2DF42C1079C000700601 /* MovieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieData.swift; sourceTree = "<group>"; };
+		BEDE2DF62C107B5000700601 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +78,10 @@
 		BEDE2DDD2C10741400700601 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				BEDE2DDF2C10742400700601 /* App */,
 				BEDE2DED2C10752B00700601 /* View */,
+				BEDE2DF32C1079AF00700601 /* Model */,
 				BEDE2DEE2C10752D00700601 /* Utility */,
+				BEDE2DDF2C10742400700601 /* App */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -102,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				BEDE2DCD2C10739100700601 /* ViewController.swift */,
+				BEDE2DF12C10770C00700601 /* MovieTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -110,8 +118,17 @@
 			isa = PBXGroup;
 			children = (
 				BEDE2DEF2C10754200700601 /* API.swift */,
+				BEDE2DF62C107B5000700601 /* DateFormat.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		BEDE2DF32C1079AF00700601 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BEDE2DF42C1079C000700601 /* MovieData.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,10 +210,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEDE2DF52C1079C000700601 /* MovieData.swift in Sources */,
+				BEDE2DF22C10770C00700601 /* MovieTableViewCell.swift in Sources */,
 				BEDE2DCE2C10739100700601 /* ViewController.swift in Sources */,
 				BEDE2DCA2C10739100700601 /* AppDelegate.swift in Sources */,
 				BEDE2DF02C10754200700601 /* API.swift in Sources */,
 				BEDE2DCC2C10739100700601 /* SceneDelegate.swift in Sources */,
+				BEDE2DF72C107B5000700601 /* DateFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
