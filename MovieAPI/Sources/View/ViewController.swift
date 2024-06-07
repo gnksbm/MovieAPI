@@ -11,7 +11,7 @@ import Alamofire
 import SnapKit
 
 final class ViewController: UIViewController {
-    private var list = [String]() {
+    private var list = [DailyBoxOfficeList]() {
         didSet {
             tableView.reloadData()
         }
@@ -19,6 +19,7 @@ final class ViewController: UIViewController {
     
     private lazy var tableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.register(
             MovieTableViewCell.self,
@@ -42,7 +43,7 @@ final class ViewController: UIViewController {
                     guard let self else { return }
                     switch response.result {
                     case .success(let movieData):
-                        list = movieData.titleList
+                        list = movieData.dailyBoxOfficeList
                     case .failure(let error):
                         print(error.localizedDescription)
                     }
@@ -51,6 +52,8 @@ final class ViewController: UIViewController {
     }
     
     private func configureUI() {
+        view.backgroundColor = .systemBackground
+        
         [tableView].forEach {
             view.addSubview($0)
         }
@@ -79,7 +82,7 @@ extension ViewController: UITableViewDataSource {
             withIdentifier: "MovieTableViewCell",
             for: indexPath
         ) as! MovieTableViewCell
-        let data = "\(indexPath.row + 1). \(list[indexPath.row])"
+        let data = list[indexPath.row]
         cell.configureCell(data: data)
         return cell
     }

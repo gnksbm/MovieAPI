@@ -13,6 +13,10 @@ struct MovieData: Codable {
     var titleList: [String] {
         boxOfficeResult.dailyBoxOfficeList.map { $0.movieNm }
     }
+    
+    var dailyBoxOfficeList: [DailyBoxOfficeList] {
+        boxOfficeResult.dailyBoxOfficeList
+    }
 }
 
 struct BoxOfficeResult: Codable {
@@ -27,7 +31,9 @@ struct DailyBoxOfficeList: Codable {
     let salesShare, salesInten, salesChange, salesAcc: String
     let audiCnt, audiInten, audiChange, audiAcc: String
     let scrnCnt, showCnt: String
+}
 
+extension DailyBoxOfficeList {
     enum CodingKeys: String, CodingKey {
         case rnum, rank, rankInten, rankOldAndNew
         case movieCD = "movieCd"
