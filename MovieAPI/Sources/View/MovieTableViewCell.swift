@@ -14,21 +14,21 @@ final class MovieTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.backgroundColor = .label
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = .systemFont(ofSize: 16, weight: .heavy)
         label.textColor = .systemBackground
         return label
     }()
     
     private let nameLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .black)
+        label.font = .systemFont(ofSize: 18, weight: .black)
         return label
     }()
     
     private let dateLabel = {
         let label = UILabel()
         label.textAlignment = .right
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.font = .systemFont(ofSize: 14)
         label.setContentCompressionResistancePriority(
             .required,
             for: .horizontal

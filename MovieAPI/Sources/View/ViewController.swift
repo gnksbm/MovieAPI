@@ -29,12 +29,14 @@ final class ViewController: UIViewController {
         return datePicker
     }()
     
+    private let textFieldBackgroundView = UIView()
+    
     private lazy var textField = {
         let textField = UITextField()
         textField.placeholder = "날짜를 선택해주세요"
         textField.text = API.dailyBoxOffice.latestDate
         textField.inputView = datePicker
-        textField.font = .systemFont(ofSize: 20, weight: .medium)
+        textField.font = .systemFont(ofSize: 20)
         textField.addTarget(
             self,
             action: #selector(fetchButtonTapped),
@@ -44,10 +46,9 @@ final class ViewController: UIViewController {
     }()
     
     private lazy var searchButton = {
-        let button = UIButton(configuration: .filled())
-        button.configuration?.cornerStyle = .small
-        button.configuration?.baseForegroundColor = .systemBackground
-        button.configuration?.baseBackgroundColor = .label
+        let button = UIButton()
+        button.backgroundColor = .label
+        button.setTitleColor(.systemBackground, for: .normal)
         button.setTitle("검색", for: .normal)
         button.addTarget(
             self,
@@ -72,6 +73,21 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         fetchMovieData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let bottomLayer = CALayer()
+        bottomLayer.backgroundColor = UIColor.label.cgColor
+        let bottomLayerHeight: CGFloat = 5
+        let superBounds = textFieldBackgroundView.bounds
+        bottomLayer.frame = CGRect(
+            x: superBounds.origin.x,
+            y: superBounds.height - bottomLayerHeight,
+            width: superBounds.width,
+            height: bottomLayerHeight
+        )
+        textFieldBackgroundView.layer.addSublayer(bottomLayer)
     }
     
     private func fetchMovieData() {
@@ -119,25 +135,33 @@ final class ViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         
-        [textField, searchButton, tableView].forEach {
+        [textFieldBackgroundView, textField, searchButton, tableView].forEach {
             view.addSubview($0)
         }
         
         let safeArea = view.safeAreaLayoutGuide
         
-        textField.snp.makeConstraints { make in
+        textFieldBackgroundView.snp.makeConstraints { make in
             make.top.equalTo(safeArea)
             make.leading.equalTo(safeArea).offset(20)
             make.trailing.equalTo(searchButton.snp.leading).offset(-20)
         }
         
+        textField.snp.makeConstraints { make in
+            make.top.equalTo(textFieldBackgroundView).offset(20)
+            make.leading.trailing.equalTo(textFieldBackgroundView)
+            make.bottom.equalTo(textFieldBackgroundView).offset(-20)
+        }
+        
         searchButton.snp.makeConstraints { make in
-            make.top.equalTo(textField)
+            make.top.equalTo(textFieldBackgroundView).offset(10)
+            make.bottom.equalTo(textFieldBackgroundView)
             make.trailing.equalTo(safeArea).offset(-20)
+            make.width.equalTo(safeArea).multipliedBy(0.22)
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom).offset(20)
+            make.top.equalTo(textFieldBackgroundView.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalTo(safeArea)
         }
     }
