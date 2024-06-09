@@ -29,6 +29,10 @@ final class MovieTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .right
         label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.setContentCompressionResistancePriority(
+            .required,
+            for: .horizontal
+        )
         return label
     }()
     
@@ -39,6 +43,11 @@ final class MovieTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        [ratingLabel, nameLabel, dateLabel].forEach { $0.text = nil }
     }
     
     func configureCell(data: DailyBoxOfficeList) {
@@ -62,7 +71,7 @@ final class MovieTableViewCell: UITableViewCell {
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(10)
             make.leading.equalTo(ratingLabel.snp.trailing).offset(20)
-            make.trailing.equalTo(dateLabel).offset(-20)
+            make.trailing.equalTo(dateLabel.snp.leading).offset(-20)
             make.bottom.equalTo(contentView).offset(-10)
         }
         

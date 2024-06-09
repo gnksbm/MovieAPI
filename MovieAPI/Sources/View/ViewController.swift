@@ -32,7 +32,7 @@ final class ViewController: UIViewController {
     private lazy var textField = {
         let textField = UITextField()
         textField.placeholder = "날짜를 선택해주세요"
-        textField.text = API.dailyBoxOffice.yesterday
+        textField.text = API.dailyBoxOffice.latestDate
         textField.inputView = datePicker
         textField.font = .systemFont(ofSize: 20, weight: .medium)
         textField.addTarget(
@@ -96,7 +96,11 @@ final class ViewController: UIViewController {
     }
     
     @objc private func fetchButtonTapped() {
-        if let url = API.dailyBoxOffice.getURL(date: datePicker.date) {
+        guard let dateString = textField.text else {
+            print("텍스트필드 값이 없습니다")
+            return
+        }
+        if let url = API.dailyBoxOffice.getURL(dateString: dateString) {
             AF.request(url)
                 .responseDecodable(
                     of: MovieData.self
