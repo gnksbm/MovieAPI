@@ -18,10 +18,15 @@ final class ViewController: UIViewController {
     }
     
     private lazy var datePicker = {
-        let pickerView = UIDatePicker()
-        pickerView.preferredDatePickerStyle = .wheels
-        pickerView.datePickerMode = .date
-        return pickerView
+        let datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(
+            self,
+            action: #selector(datePickerChanged),
+            for: .valueChanged
+        )
+        return datePicker
     }()
     
     private lazy var textField = {
@@ -84,6 +89,10 @@ final class ViewController: UIViewController {
                     }
                 }
         }
+    }
+    
+    @objc private func datePickerChanged(_ sender: UIDatePicker) {
+        textField.text = sender.date.formatted(dateFormat: .dailyBoxOffice)
     }
     
     @objc private func fetchButtonTapped() {
