@@ -7,7 +7,6 @@
 
 import UIKit
 
-import Alamofire
 import SnapKit
 
 final class ViewController: UIViewController {
@@ -34,7 +33,7 @@ final class ViewController: UIViewController {
     private lazy var textField = {
         let textField = UITextField()
         textField.placeholder = "날짜를 선택해주세요"
-        textField.text = API.dailyBoxOffice.latestDate
+        textField.text = Date.now.formatted(dateFormat: .dailyBoxOffice)
         textField.inputView = datePicker
         textField.font = .systemFont(ofSize: 20)
         textField.addTarget(
@@ -91,19 +90,17 @@ final class ViewController: UIViewController {
     }
     
     private func fetchMovieData() {
-        if let url = API.dailyBoxOffice.url {
-            AF.request(url)
-                .responseDecodable(
-                    of: MovieData.self
-                ) { [weak self] response in
+        do {
+            try MovieManager.callRequest(
+                date: .now
+            ) { response in
+                DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    switch response.result {
-                    case .success(let movieData):
-                        list = movieData.dailyBoxOfficeList
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
+                    list = response.dailyBoxOfficeList
                 }
+            }
+        } catch {
+            dump(error)
         }
     }
     
@@ -112,23 +109,17 @@ final class ViewController: UIViewController {
     }
     
     @objc private func fetchButtonTapped() {
-        guard let dateString = textField.text else {
-            print("텍스트필드 값이 없습니다")
-            return
-        }
-        if let url = API.dailyBoxOffice.getURL(dateString: dateString) {
-            AF.request(url)
-                .responseDecodable(
-                    of: MovieData.self
-                ) { [weak self] response in
+        do {
+            try MovieManager.callRequest(
+                date: datePicker.date
+            ) { response in
+                DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    switch response.result {
-                    case .success(let movieData):
-                        list = movieData.dailyBoxOfficeList
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
+                    list = response.dailyBoxOfficeList
                 }
+            }
+        } catch {
+            dump(error)
         }
     }
     

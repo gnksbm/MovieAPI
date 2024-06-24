@@ -17,6 +17,10 @@ struct MovieData: Codable {
     var dailyBoxOfficeList: [DailyBoxOfficeList] {
         boxOfficeResult.dailyBoxOfficeList
     }
+    
+    enum CodingKeys: CodingKey {
+        case boxOfficeResult
+    }
 }
 
 struct BoxOfficeResult: Codable {
